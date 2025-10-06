@@ -48,10 +48,8 @@ The following diagram maps the system's major components to their corresponding 
 
 **Component Architecture and Code Module Mapping**
 
-```
 <img width="974" height="396" alt="image" src="https://github.com/user-attachments/assets/88b9b788-9453-45a5-aa8b-35b76edb77ee" />
 
-```
 
 
 **Sources:** [jh\_app.py24-71](https://github.com/Aiktor/job_hunter/blob/03bd14bd/jh_app.py#L24-L71) [dags/dag\_hhpars\_vars.py](https://github.com/Aiktor/job_hunter/blob/03bd14bd/dags/dag_hhpars_vars.py) [etl/hhparser\_vars.py](https://github.com/Aiktor/job_hunter/blob/03bd14bd/etl/hhparser_vars.py) [pages/login.py](https://github.com/Aiktor/job_hunter/blob/03bd14bd/pages/login.py) [pages/report.py](https://github.com/Aiktor/job_hunter/blob/03bd14bd/pages/report.py) [pages/logout.py](https://github.com/Aiktor/job_hunter/blob/03bd14bd/pages/logout.py) [pages/denied.py](https://github.com/Aiktor/job_hunter/blob/03bd14bd/pages/denied.py) [utils/appvar.py](https://github.com/Aiktor/job_hunter/blob/03bd14bd/utils/appvar.py) [utils/getrole.py](https://github.com/Aiktor/job_hunter/blob/03bd14bd/utils/getrole.py) [utils/giga.py](https://github.com/Aiktor/job_hunter/blob/03bd14bd/utils/giga.py)
