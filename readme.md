@@ -49,6 +49,7 @@ The following diagram maps the system's major components to their corresponding 
 **Component Architecture and Code Module Mapping**
 
 ```
+<img width="974" height="396" alt="image" src="https://github.com/user-attachments/assets/88b9b788-9453-45a5-aa8b-35b76edb77ee" />
 
 ```
 
@@ -65,6 +66,7 @@ The following sequence diagram illustrates the complete data lifecycle from auto
 **End-to-End Data Flow: ETL to Web UI**
 
 ```
+<img width="974" height="952" alt="image" src="https://github.com/user-attachments/assets/0c536844-3b9d-4e34-b57e-fa18d84bd9dc" />
 
 ```
 
@@ -195,6 +197,7 @@ The application uses Flask sessions to maintain user state across requests:
 **Authentication State Machine**
 
 ```
+<img width="974" height="1010" alt="image" src="https://github.com/user-attachments/assets/48cc567e-3894-4960-8b13-92d3394f11c4" />
 
 ```
 
