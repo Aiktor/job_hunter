@@ -1,3 +1,12 @@
+Данный инструмент позволяет: 
+- отслеживать появление новых вакансий на сайте hh.ru,
+- получать оперативное оповещение в Телеграм о вакансиях
+- удобно анализировать вакансии в табличной форме
+- адаптировать с помощью ИИ свое резюме под конкретную вакансию
+Компоненты: сервер с настроенной БД PostgreSQL и развернутым Apache Airflow, клиент на ПК работающий в браузере (можно также развернуть на сервере с доступом онлайн)
+Как это работает:
+В БД заводятся пользователи и параметры парсинга. В Airflow работает DAG, который по расписанию управляет скриптом ETL. В свою очередь скрипт обращается по API к HH, собирает вакансии- обновляет уже имеющиеся и добавляет новые, отправляет в Телеграм информацию о новых вакансиях. В веб-приложении есть возможность просмотреть детальную информацию по вакансии, по заданному промту учитывающему данные пользователя (system role) и данные вакансии (передается через user role) сформировать рекомендации по корректировке резюме и сопроводительное под конкретную вакансию.
+
 Описание сформировано автоматически. Доступно на https://deepwiki.com/Aiktor/job_hunter
 
 Overview
@@ -63,10 +72,10 @@ The following sequence diagram illustrates the complete data lifecycle from auto
 
 **End-to-End Data Flow: ETL to Web UI**
 
-```
+
 <img width="974" height="952" alt="image" src="https://github.com/user-attachments/assets/0c536844-3b9d-4e34-b57e-fa18d84bd9dc" />
 
-```
+
 
 
 **Sources:** [dags/dag\_hhpars\_vars.py](https://github.com/Aiktor/job_hunter/blob/03bd14bd/dags/dag_hhpars_vars.py) [etl/hhparser\_vars.py](https://github.com/Aiktor/job_hunter/blob/03bd14bd/etl/hhparser_vars.py) [jh\_app.py94-138](https://github.com/Aiktor/job_hunter/blob/03bd14bd/jh_app.py#L94-L138) [pages/report.py](https://github.com/Aiktor/job_hunter/blob/03bd14bd/pages/report.py) [utils/giga.py](https://github.com/Aiktor/job_hunter/blob/03bd14bd/utils/giga.py)
@@ -194,10 +203,10 @@ The application uses Flask sessions to maintain user state across requests:
 
 **Authentication State Machine**
 
-```
+
 <img width="974" height="1010" alt="image" src="https://github.com/user-attachments/assets/48cc567e-3894-4960-8b13-92d3394f11c4" />
 
-```
+
 
 
 Key session variables:
