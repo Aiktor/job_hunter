@@ -1,0 +1,169 @@
+var dagfuncs = (window.dashAgGridFunctions = window.dashAgGridFunctions || {});
+
+dagfuncs.dataTypeDefinitions = {
+    dateString: {
+        baseDataType: 'dateString',
+        extendsDataType: 'dateString',
+        valueParser: (params) =>
+            params.newValue != null &&
+            params.newValue.match('\\d{2}/\\d{2}/\\d{4}')
+                ? params.newValue
+                : null,
+        valueFormatter: (params) => (params.value == null ? '' : params.value),
+        dataTypeMatcher: (value) =>
+            typeof value === 'string' && !!value.match('\\d{2}\\\d{2}\\\d{4}'),
+        dateParser: (value) => {
+            if (value == null || value === '') {
+                return undefined;
+            }
+            const dateParts = value.split('/');
+            return dateParts.length === 3
+                ? new Date(
+                    parseInt(dateParts[2]),
+                    parseInt(dateParts[1]) - 1,
+                    parseInt(dateParts[0])
+                )
+                : undefined;
+        },
+        dateFormatter: (value) => {
+            if (value == null) {
+                return undefined;
+            }
+            const date = String(value.getDate());
+            const month = String(value.getMonth() + 1);
+            return `${date.length === 1 ? '0' + date : date}/${
+                month.length === 1 ? '0' + month : month
+            }/${value.getFullYear()}`;
+        },
+    },
+};
+
+var dagcomponentfuncs = window.dashAgGridComponentFunctions = window.dashAgGridComponentFunctions || {};
+
+
+dagcomponentfuncs.CustomTooltip = function (props) {
+    info = [
+        React.createElement('div', {}, props.data['описание']),
+        // React.createElement('div', {}, props.data.company),
+        // React.createElement('div', {}, props.data.price),
+    ];
+    return React.createElement(
+        'div',
+        {
+            style: {
+                //border: '2pt solid white',
+                backgroundColor: '#d9e3f1',//props.color || 
+                padding: 3,
+            },
+        },
+        info
+    );
+};
+
+//var dagcomponentfuncs = (window.dashAgGridComponentFunctions = window.dashAgGridComponentFunctions || {});
+
+dagcomponentfuncs.EditButton = function (props) {
+    function onButtonClicked() {
+        props.api.startEditingCell({
+            rowIndex: props.rowIndex,
+            colKey: props.column.getId(),
+        });
+    }
+
+    return React.createElement('span', {}, [
+        React.createElement(
+            'button',
+            {onClick: onButtonClicked, style: {padding: 1,
+                color: '#334D6E',
+                borderStyle: 'solid',
+                borderWidth: 1,
+                borderColor: '#334D6E',
+                borderRadius: 5,
+                backgroundColor: '#f0f5fa',
+                lineHeight: 'normal'
+            },},
+            '✎'
+        ),
+        React.createElement(
+            'span',
+            {style: {paddingLeft: '8px'},},
+            props.value
+        ),
+    ]);
+};
+
+
+
+dagcomponentfuncs.ImgThumbnail = function (props) {
+    const {setData, data} = props;
+
+    function onClick() {
+        setData(props.value);
+    }
+
+    return React.createElement(
+        'div',
+        {
+            style: {
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                alignItems: 'center',
+            },
+        },
+        React.createElement(
+            'img',
+            {
+                onClick,
+                style: {width: '24px', height: '24px', marginRight: '10px'},
+                src: `assets/faces/${props.data['id staff']}.jpg`, // Update the src attribute to include the correct path and file extension
+            },
+        ),
+        React.createElement(
+            'span',
+            null,
+            props.value  // Display the information from the 'ФИО' column
+        )
+    );
+};
+
+
+
+// // Для кнопок в таблице на станице /approve
+// dagcomponentfuncs.Button = function (props) {
+//     const {setData, data} = props;
+
+//     function onClick() {
+//         setData();
+//     }
+    
+//     return React.createElement(
+//         'button',
+//         {
+//             onClick: onClick,
+//             className: props.className,
+//         },
+//         props.value
+//     );
+// };
+
+dagcomponentfuncs.Button = function (props) {
+    const {setData, data} = props;
+
+    function onClick() {
+        setData();
+    }
+    // Проверяем значение другого поля ("show_check"), если оно равно "True", то отображаем кнопку, иначе скрываем
+    const showButton = data["show_check"] === true;
+    // Показываем кнопку только если showButton равно true
+    return showButton ? (
+        React.createElement(
+            'button',
+            {
+                onClick: onClick,
+                className: props.className,
+            },
+            props.value
+        )
+    ) : null;
+};
